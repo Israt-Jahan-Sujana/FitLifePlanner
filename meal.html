@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meal Intake - Fit Life Planner</title>
+  <link rel="icon" href="heart-rate.png" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-5 rounded-b-[15px]">
+    <div class="w-full max-w-8xl px-5 flex flex-col items-start md:flex-row md:items-center justify-between">
+      <div class="pl-20 text-3xl font-bold text-left text-indigo-600 flex-1" style="font-family: 'Dancing Script', cursive;">
+        Fit Life Planner
+      </div>
+      <ul class="flex flex-col gap-5 w-full mt-2.5 text-gray-700 font-medium pr-0 md:flex-row md:space-x-10 md:pr-20 md:w-auto md:mt-0 justify-end">
+        <li><a href="profile.html" class="hover:text-indigo-600 transition">Home</a></li>
+        <li><a href="fitness.html" class="hover:text-indigo-600 transition">Fitness Activity</a></li>
+        <li><a href="meal.html" class="hover:text-indigo-600 transition">Meal Intake</a></li>
+        <li><a href="bmi_bmr.html" class="hover:text-indigo-600 transition">BMI/BMR</a></li>
+        <li><a href="#" class="hover:text-indigo-600 transition">Feedback</a></li>
+        <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Spacer below navbar -->
+  <div class="h-[260px] md:h-[150px] lg:h-[100px] xl:h-[80px]"></div>
+
+  <!-- Main Content -->
+<main class="flex-grow px-6 pb-10">
+  <h1 class="text-3xl font-bold text-center text-blue-500 mb-8 mt-8">Meal Intake Tracker</h1>
+
+  <!-- Container for meal & water -->
+  <div class="flex flex-col md:flex-row gap-6">
+    
+    <!-- Meal Tracker Section -->
+    <div class="md:w-2/3">
+      <!-- Table -->
+      <div class="overflow-x-auto mb-6">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+          <thead class="bg-indigo-100 text-blue-500">
+            <tr>
+              <th class="p-3 text-left">Select</th>
+              <th class="p-3 text-left">Food Item</th>
+              <th class="p-3 text-left">Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-3"><input type="checkbox" class="food-checkbox" data-calories="95" /></td>
+              <td class="p-3">Apple</td>
+              <td class="p-3">95</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3"><input type="checkbox" class="food-checkbox" data-calories="165" /></td>
+              <td class="p-3">Grilled Chicken Breast</td>
+              <td class="p-3">165</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3"><input type="checkbox" class="food-checkbox" data-calories="250" /></td>
+              <td class="p-3">Peanut Butter Sandwich</td>
+              <td class="p-3">250</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Manual Input -->
+      <div class="mb-6 max-w-md">
+        <label for="manualCalories" class="block mb-2 font-medium text-gray-700">Add Custom Calories:</label>
+        <input type="number" id="manualCalories" class="w-full p-2 border border-gray-300 rounded mb-2" placeholder="e.g. 300" />
+        <button onclick="addManualCalories()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-sky-500 transition-all duration-200">Add</button>
+      </div>
+
+      <!-- Total Calories -->
+      <div class="text-lg font-semibold text-gray-800">
+        Total Calories Consumed: <span id="totalCalories">0</span> kcal
+      </div>
+    </div>
+
+<!--Water Intake-->
+<div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-md border border-gray-300">
+  <h2 class="text-xl font-bold text-blue-500 mb-4 text-center">Water Intake</h2>
+
+  <div class="text-center text-lg mb-4">
+    Glasses Drank: <span id="waterCount">0</span>/8
+  </div>
+
+  <div class="w-full bg-gray-200 rounded-full h-6 mb-4 overflow-hidden">
+    <div id="waterProgress" class="bg-blue-500 h-full w-0 transition-all duration-500"></div>
+  </div>
+
+  <div class="flex justify-center gap-4 mb-4">
+    <button onclick="addGlass()" class="bg-sky-500 text-white px-6 py-2 rounded ">
+      Drink Water
+    </button>
+    <button onclick="resetWater()" class="bg-sky-500 text-white px-6 py-2 rounded ">
+      Reset
+    </button>
+  </div>
+
+  <div id="congratsSection" class="hidden text-center mt-4">
+    <img src="water.jpg" alt="Good Job!" class="mx-auto w-24 h-24 mb-2" />
+    <p class="text-green-600 font-semibold text-lg">Good job! You've completed your 8 glasses!</p>
+  </div>
+</div>
+
+  </div>
+</main>
+
+
+    <!-- Footer -->
+  <footer class="bg-gradient-to-br from-indigo-500 to-violet-400 text-white px-5 py-6 text-center rounded-t-[15px] shadow-md">
+    <p>&copy; 2025 FitLifePlanner. All rights reserved.</p>
+  </footer>
+
+<script>
+  let totalCalories = 0;
+  let waterCount = 0;
+
+  // Calorie checkboxes
+  document.querySelectorAll('.food-checkbox').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const cal = parseInt(cb.dataset.calories);
+      totalCalories += cb.checked ? cal : -cal;
+      updateTotal();
+    });
+  });
+
+  function addManualCalories() {
+    const input = document.getElementById('manualCalories');
+    const val = parseInt(input.value);
+    if (!isNaN(val)) {
+      totalCalories += val;
+      updateTotal();
+      input.value = '';
+    }
+  }
+
+  function updateTotal() {
+    document.getElementById('totalCalories').textContent = totalCalories;
+  }
+
+  // Water Intake Logic
+  function addGlass() {
+    if (waterCount < 8) {
+      waterCount++;
+      document.getElementById('waterCount').textContent = waterCount;
+
+      const progress = (waterCount / 8) * 100;
+      document.getElementById('waterProgress').style.width = `${progress}%`;
+
+      if (waterCount === 8) {
+        document.getElementById('congratsSection').classList.remove('hidden');
+      }
+    }
+  }
+  function resetWater() {
+  waterCount = 0;
+  document.getElementById('waterCount').textContent = waterCount;
+  document.getElementById('waterProgress').style.width = '0%';
+  document.getElementById('congratsSection').classList.add('hidden');
+}
+
+</script>
+
+
+</body>
+</html>
