@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fit Life Planner</title>
+   <link rel="icon" type="image/x-icon" href="heart-rate.png">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-clifford: #da373d;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+    rel="stylesheet"
+  />
+<body>
+
+    <!-- Navigation Bar -->
+<nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-5 rounded-b-[15px]">
+  <div class="w-full max-w-8xl px-5 flex flex-col items-start md:flex-row md:items-center justify-between">
+    <!-- Logo on the far left -->
+    <div
+      class="pl-20 text-3xl font-bold text-left text-indigo-600 flex-1"
+      style="font-family: 'Dancing Script', cursive;"
+    >
+      Fit Life Planner
+    </div>
+    <!-- Navigation links on the far right -->
+    <ul class="flex flex-col gap-5 w-full mt-2.5 text-gray-700 font-medium pr-0 md:flex-row md:space-x-10 md:pr-20 md:w-auto md:mt-0 justify-end">
+      <li><a href="profile.html" class="hover:text-indigo-600 transition">Home</a></li>
+      <li><a href="fitness.html" class="hover:text-indigo-600 transition">Fitness Activity</a></li>
+      <li><a href="#" class="hover:text-indigo-600 transition">Meal Intake</a></li>
+      <li><a href="bmi_bmr.html" class="hover:text-indigo-600 transition">BMI/BMR</a></li>
+      <li><a href="#" class="hover:text-indigo-600 transition">Feedback</a></li>
+      <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Spacer to offset fixed navbar height dynamically -->
+<div class="h-[260px] md:h-[150px] lg:h-[100px] xl:h-[80px]"></div>
+
+
+    <section class="bg-gray-50 min-h-screen px-6 py-10">
+  <div class="max-w-4xl mx-auto bg-white rounded-xl shadow p-6">
+    <h2 class="text-2xl font-semibold text-indigo-600 mb-6">Fitness Activity</h2>
+
+    <!-- 1. Daily Exercise Log -->
+    <form class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <!-- Exercise Name -->
+      <input type="text" placeholder="Exercise (e.g. Running)" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400" />
+
+      <!-- Duration -->
+      <input type="number" placeholder="Duration (mins)" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400" />
+
+      <!-- Calories Burned -->
+      <input type="number" placeholder="Calories Burned" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-400" />
+
+      <!-- Add Button -->
+      <div class="md:col-span-3 flex justify-end">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">
+          Add Activity
+        </button>
+      </div>
+    </form>
+
+    <!-- 2. Exercise Log Table -->
+    <div class="overflow-x-auto mb-6">
+      <table class="min-w-full text-sm text-left">
+        <thead class="bg-indigo-100 text-indigo-700">
+          <tr>
+            <th class="py-2 px-4">Exercise</th>
+            <th class="py-2 px-4">Duration (min)</th>
+            <th class="py-2 px-4">Calories</th>
+            <th class="py-2 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t">
+            <td class="py-2 px-4">Running</td>
+            <td class="py-2 px-4">30</td>
+            <td class="py-2 px-4">250</td>
+            <td class="py-2 px-4 space-x-2">
+              <button class="text-blue-600 hover:underline">Edit</button>
+              <button class="text-red-500 hover:underline">Delete</button>
+            </td>
+          </tr>
+          <!-- More rows dynamically added -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3. Calories Burned Chart -->
+    <div class="bg-indigo-50 rounded-lg p-4">
+      <h3 class="text-lg font-medium text-indigo-600 mb-2">Calories Burned This Week</h3>
+      <canvas id="caloriesChart" class="w-full h-64"></canvas>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById("caloriesChart").getContext("2d");
+  const caloriesChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      datasets: [{
+        label: "Calories Burned",
+        data: [250, 300, 150, 400, 350, 200, 280],
+        backgroundColor: "#6366F1"
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<!-- Footer Section -->
+    <footer class="bg-gradient-to-br from-indigo-500 to-violet-400 text-white px-5 py-8 text-center rounded-t-[15px] shadow-md">
+        <p>&copy; 2025 FitLifePlanner. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
