@@ -18,91 +18,82 @@
     rel="stylesheet"
   />
 </head>
+<body class="min-h-screen bg-gradient-to-b from-indigo-300 to-white  ">
 
-<body
-  class="min-h-screen bg-gradient-to-b from-indigo-300 to-white flex flex-col items-center justify-center px-4 py-8"
->
-  <!-- Top Header -->
-  <div
-    class="absolute top-6 right-6 sm:right-8 sm:top-8"
-  >
-    <a href="register.html">
-    <button
-      class="bg-opacity-20 text-white font-bold px-4 py-2 rounded-full border border-white"
-    >
-      Sign Up
-    </button></a>
-  </div>
+  <!-- Header -->
+  <header class="bg-gradient-to-br from-indigo-500 to-indigo-400 text-white px-5 py-8 text-center rounded-b-[15px] shadow-md">
+  <!-- Your content here -->
+  <h1 class="text-4xl font-bold">Welcome to <span style="font-family: 'Dancing Script', cursive;"
+      class="text-center pt-6 text-xl sm:text-5xl font-bold text-shadow-lg text-white">FitLifePlanner</span></h1>
+</header>
 
-  <!-- Logo -->
-  <div class="mb-4 w-full max-w-xl px-4 sm:px-0">
-    <h1
-      style="font-family: 'Dancing Script', cursive;"
-      class="text-center pt-6 text-3xl sm:text-5xl font-bold text-shadow-lg text-white"
-    >
-      Fit Life Planner
-    </h1>
-  </div>
+<!-- Navigation Menu -->
+<nav class="bg-[#f8fbf8] border-2 border-indigo-400 rounded-[15px] shadow-md transition-transform duration-300 ease-in-out mt-2 px-5 py-4 overflow-x-auto">
+  <ul class="list-none flex justify-center gap-4">
+    <li>
+      <a href="login.html"
+         class="inline-block px-6 py-3 bg-indigo-400 text-white font-bold rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-indigo-500 hover:scale-110">
+         Login
+      </a>
+    </li>
+    <li>
+      <a href="register.html"
+         class="inline-block px-6 py-3 bg-indigo-400 text-white font-bold rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-indigo-500 hover:scale-110">
+         Register
+      </a>
+    </li>
+  </ul>
+</nav>
 
-  <!-- Card -->
-  <div
-    class="bg-white w-full max-w-md rounded-3xl shadow-lg px-6 py-8 sm:px-8 sm:py-10"
-  >
-    <h2 class="text-xl sm:text-2xl font-semibold text-center mb-1">
-      Welcome back!
-    </h2>
-    <p class="text-gray-500 text-center mb-6 text-sm sm:text-base">
-      Log in with your account
-    </p>
-
-    <!-- Form -->
-    <form class="space-y-4">
-      <input
-        type="email"
-        placeholder="Email Address"
-        class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-      />
-      <div class="relative">
-        <input
-          type="password"
-          placeholder="Password"
-          class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-        />
-        <span class="absolute right-3 top-3.5 text-gray-400"></span>
-      </div>
-      <button
-        type="submit"
-        class="w-full bg-indigo-400 text-white font-semibold py-3 rounded-xl hover:bg-indigo-500 transition text-sm sm:text-base"
-      >
-        Login
-      </button>
-    </form>
-
-    <p
-      class="text-indigo-400 text-center mt-4 text-xs sm:text-sm cursor-pointer hover:underline"
-    >
-      Forgot your password?
-    </p>
-
-    <div class="flex items-center my-6">
-      <hr class="flex-grow border-t border-gray-300" />
-      <span class="mx-4 text-gray-500 text-sm">or</span>
-      <hr class="flex-grow border-t border-gray-300" />
+<!-- Welcome Section -->
+  <section class="mt-10 px-4 transition-transform duration-300 ease-in-out hover:-translate-y-2">
+    <div class="bg-[#f8fbf8] border-2 border-indigo-400 rounded-[15px] bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+      <h2 class="text-2xl text-center font-semibold text-gray-800 mb-2">Welcome to FitLifePlanner</h2>
+      <p class="text-gray-600">
+        Your all-in-one health planner—track workouts, plan meals, and reach your wellness goals with ease.
+      </p>
     </div>
+  </section>
 
-    <!-- Social Buttons -->
-    <button
-      class="w-full flex items-center justify-center gap-2 bg-black text-white py-2.5 sm:py-3 rounded-xl mb-3 text-sm sm:text-base"
-    >
-      <img class="h-4 sm:h-5" src="apple.png" alt="" />
-      Sign in with Apple
-    </button>
-    <button
-      class="w-full flex items-center justify-center gap-2 bg-gray-100 text-black py-2.5 sm:py-3 rounded-xl text-sm sm:text-base"
-    >
-      <img class="h-4 sm:h-5" src="google.png" alt="" />
-      Login with Google
-    </button>
-  </div>
+  <!-- About Section -->
+  <section class="mt-10 px-4 transition-transform duration-300 ease-in-out hover:-translate-y-2">
+    <div class="bg-[#f8fbf8] border-2 border-indigo-400 rounded-[15px] bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+      <h2 class="text-2xl text-center font-semibold text-gray-800 mb-2">About FitLifePlanner</h2>
+      <p class="text-gray-600">
+        FitLifePlanner is a smart health and fitness platform designed to help users manage their lifestyle more effectively. Whether you're aiming to improve your workout consistency, maintain a balanced diet, or understand your body metrics like BMI and BMR—this platform makes it all accessible, organized, and personalized.
+      </p>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="mt-8 px-4 transition-transform duration-300 ease-in-out hover:-translate-y-2">
+    <div class="bg-[#f8fbf8] border-2 border-indigo-400 rounded-[15px] bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+      <h2 class="text-2xl text-center font-semibold text-gray-800 mb-2">Key Features</h2>
+      <ul class="list-disc pl-5 text-gray-600 space-y-1">
+        <li>🏋️‍♂️ Fitness activity tracking</li>
+        <li>🍎 Meal intake planner & logger</li>
+        <li>📊 BMI and BMR calculator</li>
+        <li>👩‍⚕️ Access to expert dietitian </li>
+        <li>📅 Daily and weekly goal setting</li>
+        <li>🔔 Reminders and motivational insights</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mt-10 px-4 mb-12 transition-transform duration-300 ease-in-out hover:-translate-y-2">
+    <div class="bg-[#f8fbf8] border-2 border-indigo-400 rounded-[15px] bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+      <h2 class="text-2xl text-center font-semibold text-gray-800 mb-2">Our Mission</h2>
+      <p class="text-gray-600">
+       At FitLifePlanner, we empower individuals to live healthier, more balanced lives through smart planning, mindful eating, and expert support. Your health is your wealth — and we’re here to help you invest in it.
+      </p>
+    </div>
+  </section>
+
+   <!-- Footer Section -->
+    <footer class="bg-gradient-to-br from-indigo-500 to-indigo-400 text-white px-5 py-8 text-center rounded-t-[15px] shadow-md">
+        <p>&copy; 2025 FitLifePlanner. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
