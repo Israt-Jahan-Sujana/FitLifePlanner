@@ -78,34 +78,46 @@
         />
         <span class="absolute right-3 top-3.5 text-gray-400"></span>
       </div>
-      <a
-        href="profile.html"
-        class="block text-center w-full bg-indigo-400 text-white font-semibold py-3 rounded-xl hover:bg-indigo-500 transition text-sm sm:text-base"
+     <!-- Role Selection -->
+    <div>
+      <select
+        id="role"
+        class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 text-gray-700"
       >
-        Create An Account
-      </a>
-    </form>
-
-
-    <div class="flex items-center my-6">
-      <hr class="flex-grow border-t border-gray-300" />
-      <span class="mx-4 text-gray-500 text-sm">or</span>
-      <hr class="flex-grow border-t border-gray-300" />
+        <option value="" disabled selected>Select Role</option>
+        <option value="user">User</option>
+        <option value="dietitian">Dietitian</option>
+        <option value="admin">Admin</option>
+      </select>
     </div>
 
-    <!-- Social Buttons -->
+    <!-- Create Account Button -->
     <button
-      class="w-full flex items-center justify-center gap-2 bg-black text-white py-2.5 sm:py-3 rounded-xl mb-3 text-sm sm:text-base"
+      id="createBtn"
+      type="button"
+      class="block text-center w-full bg-indigo-400 text-white font-semibold py-3 rounded-xl hover:bg-indigo-500 transition text-sm sm:text-base"
     >
-      <img class="h-4 sm:h-5" src="apple.png" alt="" />
-      Sign in with Apple
+      Create An Account
     </button>
-    <button
-      class="w-full flex items-center justify-center gap-2 bg-gray-100 text-black py-2.5 sm:py-3 rounded-xl text-sm sm:text-base"
-    >
-      <img class="h-4 sm:h-5" src="google.png" alt="" />
-      Sign in with Google
-    </button>
+
+    </form>
+
   </div>
+  <script>
+  document.getElementById("createBtn").addEventListener("click", function () {
+    const role = document.getElementById("role").value;
+
+    if (role === "user") {
+      window.location.href = "profile.html";
+    } else if (role === "dietitian") {
+      window.location.href = "dietitian_dashboard.html";
+    } else if (role === "admin") {
+      window.location.href = "admin_dashboard.html";
+    } else {
+      alert("Please select a role before continuing.");
+    }
+  });
+</script>
+
 </body>
 </html>
