@@ -1,11 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fit Life Planner</title>
+  <link rel="icon" type="image/x-icon" href="heart-rate.png">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-clifford: #da373d;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
+   <!-- Navbar -->
+  <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-4 sm:py-5 rounded-b-[15px]">
+  <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between">
     
+    <!-- Logo -->
+    <div class="text-2xl sm:text-3xl font-bold text-indigo-600" style="font-family: 'Dancing Script', cursive;">
+      Fit Life Planner
+    </div>
+
+    <!-- Menu Links -->
+    <ul class="flex flex-col sm:flex-row sm:space-x-8 mt-4 sm:mt-0 text-gray-700 font-medium text-base sm:text-[16px]">
+      <li><a href="profile.html" class="hover:text-indigo-600 transition">Home</a></li>
+      
+      <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+ <!-- Spacer below navbar -->
+<div class="h-[120px]"></div>
+
+<!-- Container -->
+<div class="max-w-6xl mx-auto px-6 py-6">
+  <h2 class="text-2xl font-bold text-indigo-600 mb-6">Search Users</h2>
+
+  <!-- Search Box -->
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search by user name..."
+    class="w-full sm:w-1/2 px-4 py-2 mb-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
+  />
+
+  <!-- Users List -->
+  <div id="userList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</div>
+
+<!-- User Details Modal -->
+<div id="userModal" class="fixed inset-0 bg-black bg-opacity-30 hidden justify-center items-center z-50">
+  <div class="bg-white rounded-xl p-6 w-[95%] max-w-xl relative">
+    <button onclick="closeModal()" class="absolute top-2 right-4 text-red-600 text-xl font-bold">&times;</button>
+    <h3 class="text-xl font-semibold mb-4 text-indigo-600">User Details</h3>
+    <div id="userDetails" class="space-y-2 text-gray-700 text-base"></div>
+
+    <!-- Suggestions -->
+    <div class="mt-6">
+      <h4 class="text-lg font-semibold mb-2">Suggest Food & Exercise</h4>
+      <textarea id="suggestionInput" rows="3" placeholder="Write your suggestions..." class="w-full border border-gray-300 rounded-md px-4 py-2 mb-2"></textarea>
+      <button onclick="saveSuggestion()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">Save Suggestion</button>
+    </div>
+
+    <!-- Chat -->
+    <div class="mt-6">
+      <h4 class="text-lg font-semibold mb-2">Chat with User</h4>
+      <div id="chatBox" class="bg-gray-100 rounded-md h-32 overflow-y-auto p-3 mb-2 text-sm text-gray-800"></div>
+      <input id="chatInput" type="text" placeholder="Type a message..." class="w-full border border-gray-300 rounded-md px-3 py-2" onkeydown="if(event.key==='Enter') sendMessage()" />
+    </div>
+  </div>
+</div>
+
+<!-- Form Example -->
+  <section class="mx-auto w-[90%] max-w-[600px] bg-white/90 backdrop-blur-md border-2 border-sky-300 rounded-2xl p-6 shadow-md mt-8">
+    <h2 class="text-2xl font-bold text-center text-[#2c3e50] mb-6">Suggest Food</h2>
+    <form>
+      <label class="block font-bold mb-2" for="food">Food Suggestion:</label>
+      <input type="text" id="food" placeholder="Enter food" class="w-full p-3 border rounded-full mb-4 shadow-inner focus:outline-none focus:ring-2 focus:ring-sky-400">
+
+      <label class="block font-bold mb-2" for="exercise">Exercise Suggestion:</label>
+      <input type="text" id="exercise" placeholder="Enter exercise" class="w-full p-3 border rounded-full mb-4 shadow-inner focus:outline-none focus:ring-2 focus:ring-sky-400">
+
+      <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105">Submit</button>
+    </form>
+  </section>
+
+
+
+
+<script>
+  const dummyUsers = [
+    {
+      name: "Ariana Green",
+      email: "ariana@example.com",
+      age: 26,
+      height: 165,
+      weight: 58,
+      gender: "Female",
+      goal: "Weight Loss",
+      goalWeight: 52
+    },
+    {
+      name: "Jason Miller",
+      email: "jason@example.com",
+      age: 34,
+      height: 175,
+      weight: 78,
+      gender: "Male",
+      goal: "Muscle Gain",
+      goalWeight: 85
+    }
+  ];
+
+  const userList = document.getElementById("userList");
+  const userModal = document.getElementById("userModal");
+  const userDetails = document.getElementById("userDetails");
+
+  // Render Users
+  function displayUsers(users) {
+    userList.innerHTML = "";
+    users.forEach((user, index) => {
+      const div = document.createElement("div");
+      div.className = "p-4 bg-white rounded-lg shadow hover:shadow-md transition";
+      div.innerHTML = `
+        <h3 class="text-lg font-semibold text-indigo-600">${user.name}</h3>
+        <p class="text-sm text-gray-600">${user.email}</p>
+        <button onclick="showDetails(${index})" class="mt-2 text-sm bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600">View</button>
+      `;
+      userList.appendChild(div);
+    });
+  }
+
+  displayUsers(dummyUsers);
+
+  // Filter on search
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const value = this.value.toLowerCase();
+    const filtered = dummyUsers.filter(user =>
+      user.name.toLowerCase().includes(value)
+    );
+    displayUsers(filtered);
+  });
+
+  // Show User Details
+  let currentUser = null;
+
+  function showDetails(index) {
+    currentUser = dummyUsers[index];
+    const u = currentUser;
+    userDetails.innerHTML = `
+      <p><strong>Name:</strong> ${u.name}</p>
+      <p><strong>Email:</strong> ${u.email}</p>
+      <p><strong>Age:</strong> ${u.age}</p>
+      <p><strong>Gender:</strong> ${u.gender}</p>
+      <p><strong>Height:</strong> ${u.height} cm</p>
+      <p><strong>Weight:</strong> ${u.weight} kg</p>
+      <p><strong>Goal:</strong> ${u.goal}</p>
+      <p><strong>Goal Weight:</strong> ${u.goalWeight} kg</p>
+    `;
+
+    // Load existing chat and suggestion
+    document.getElementById("chatBox").innerHTML = (localStorage.getItem(`${u.email}_chat`) || "").replace(/\n/g, "<br>");
+    document.getElementById("suggestionInput").value = localStorage.getItem(`${u.email}_suggestion`) || "";
+
+    userModal.classList.remove("hidden");
+    userModal.classList.add("flex");
+  }
+
+  function closeModal() {
+    userModal.classList.add("hidden");
+  }
+
+  function sendMessage() {
+    const chatInput = document.getElementById("chatInput");
+    const message = chatInput.value.trim();
+    if (!message || !currentUser) return;
+
+    let chatLog = localStorage.getItem(`${currentUser.email}_chat`) || "";
+    chatLog += `Dietitian: ${message}\n`;
+    localStorage.setItem(`${currentUser.email}_chat`, chatLog);
+    document.getElementById("chatBox").innerHTML = chatLog.replace(/\n/g, "<br>");
+    chatInput.value = "";
+  }
+
+  function saveSuggestion() {
+    if (!currentUser) return;
+    const suggestion = document.getElementById("suggestionInput").value.trim();
+    localStorage.setItem(`${currentUser.email}_suggestion`, suggestion);
+    alert("Suggestion saved!");
+  }
+</script>
+
+
 </body>
 </html>
