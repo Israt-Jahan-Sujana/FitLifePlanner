@@ -26,9 +26,9 @@
   <div
     class="absolute top-4 left-6 sm:left-8 sm:top-8"
   >
-    <a href="login.html">
+    <a href="index.html">
     <button
-      class="bg-opacity-20 text-white font-bold px-4 py-2 rounded-full border border-white"
+      class="bg-opacity-10 text-white font-bold px-4 py-2 rounded-xl border border-white drop-shadow-xl"
     >
       Back
     </button></a>
@@ -55,6 +55,8 @@
 
     <!-- Form -->
     <form class="space-y-4">
+
+
       <input
         type="FirstName"
         placeholder="First Name"
@@ -103,6 +105,14 @@
     </form>
 
   </div>
+<!-- Already have account text -->
+<div class="text-center mt-4 text-sm text-gray-600">
+  Already have an account?
+  <a href="login.html" class="text-indigo-500 font-semibold hover:underline">
+    Sign In
+  </a>
+</div>
+
   <script>
   document.getElementById("createBtn").addEventListener("click", function () {
     const role = document.getElementById("role").value;

@@ -22,6 +22,18 @@
 <body
   class="min-h-screen bg-gradient-to-b from-indigo-300 to-white flex flex-col items-center justify-center px-4 py-8"
 >
+  <!-- Top Header -->
+   
+  <div
+    class="absolute left-4 top-12 sm:left-8 sm:top-8"
+  >
+    <a href="index.html">
+    <button
+      class="bg-opacity-10 text-white font-bold px-4 py-2 rounded-xl border border-white drop-shadow-xl"
+    >
+      Back
+    </button></a>
+  </div>
 
   <!-- Logo -->
   <div class="mb-4 w-full max-w-xl px-4 sm:px-0">
@@ -81,25 +93,17 @@
   >
     Login
   </button>
-
-  <div class="flex justify-between">
-      <a href="index.html">
-    <button
-      class=" bg-indigo-400 text-white font-semibold py-2 px-4 rounded-xl hover:bg-indigo-500 transition text-sm sm:text-base"
-    >
-      Back
-    </button></a>
-
-  <a href="register.html">
-    <button
-      class="bg-indigo-400 text-white font-semibold px-4 py-2 rounded-xl"
-    >
-      Sign Up
-    </button></a>
-  </div>
 </form>
 
   </div>
+
+  <!-- Don't have account text -->
+<div class="text-center mt-4 text-sm text-gray-600">
+  Don't have an account?
+  <a href="register.html" class="text-indigo-500 font-semibold hover:underline">
+    Sign Up
+  </a>
+</div>
 
   <script>
   function redirectToDashboard() {
