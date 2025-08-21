@@ -13,23 +13,27 @@
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
 
-  <!-- Navbar -->
-  <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-5 rounded-b-[15px]">
-    <div class="w-full max-w-8xl px-5 flex flex-col items-start md:flex-row md:items-center justify-between">
-      <div class="pl-20 text-3xl font-bold text-left text-indigo-600 flex-1" style="font-family: 'Dancing Script', cursive;">
-        Fit Life Planner
-      </div>
-      <ul class="flex flex-col gap-5 w-full mt-2.5 text-gray-700 font-medium pr-0 md:flex-row md:space-x-10 md:pr-20 md:w-auto md:mt-0 justify-end">
-        <li><a href="profile.html" class="hover:text-indigo-600 transition">Home</a></li>
-        <li><a href="fitness.html" class="hover:text-indigo-600 transition">Fitness Activity</a></li>
-        <li><a href="meal.html" class="hover:text-indigo-600 transition">Meal Intake</a></li>
-        <li><a href="bmi_bmr.html" class="hover:text-indigo-600 transition">BMI/BMR</a></li>
-        <li><a href="feedback.html" class="hover:text-indigo-600 transition">Feedback</a></li>
-        <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
-      </ul>
+<!-- Navigation Bar -->
+<nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-5 rounded-b-[15px]">
+  <div class="w-full max-w-8xl px-5 flex flex-col items-start md:flex-row md:items-center justify-between">
+    <!-- Logo on the far left -->
+    <div
+      class="pl-20 text-3xl font-bold text-left text-indigo-600 flex-1"
+      style="font-family: 'Dancing Script', cursive;"
+    >
+      Fit Life Planner
     </div>
-  </nav>
-
+    <!-- Navigation links on the far right -->
+    <ul class="flex flex-col gap-5 w-full mt-2.5 text-gray-700 font-medium pr-0 md:flex-row md:space-x-10 md:pr-20 md:w-auto md:mt-0 justify-end">
+      <li><a href="profile.php" class="hover:text-indigo-600 transition">Home</a></li>
+      <li><a href="fitness.html" class="hover:text-indigo-600 transition">Fitness Activity</a></li>
+      <li><a href="meal.html" class="hover:text-indigo-600 transition">Meal Intake</a></li>
+      <li><a href="bmi_bmr.html" class="hover:text-indigo-600 transition">BMI/BMR</a></li>
+      <li><a href="feedback.php" class="hover:text-indigo-600 transition">Feedback</a></li>
+      <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
+    </ul>
+  </div>
+</nav>
   <!-- Spacer below navbar -->
   <div class="h-[260px] md:h-[150px] lg:h-[100px] xl:h-[80px]"></div>
 
