@@ -1,3 +1,57 @@
+<?php
+// profile.php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require 'config.php';
+session_start();
+
+// Get logged-in user ID from session
+$user_id = $_SESSION['user_id'] ?? 1; // For testing, default 1
+
+try {
+    // Fetch user info
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch();
+
+    if (!$user) {
+        die("User not found");
+    }
+
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name         = trim($_POST['name']);
+    $email        = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
+    $password     = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : $user['password'];
+    $gender       = $_POST['gender'] ?? '';
+    $height       = $_POST['height'] ?? NULL;
+    $weight       = $_POST['weight'] ?? NULL;
+    $age          = $_POST['age'] ?? NULL;
+    $goal_weight  = $_POST['goal_weight'] ?? NULL;
+    $fitness_goal = $_POST['fitness_goal'] ?? '';
+
+    if ($name && $email) {
+        $updateStmt = $pdo->prepare("UPDATE users SET 
+            name = ?, email = ?, password = ?, gender = ?, height = ?, weight = ?, age = ?, goal_weight = ?, fitness_goal = ? 
+            WHERE id = ?");
+        $updateStmt->execute([
+            $name, $email, $password, $gender, $height, $weight, $age, $goal_weight, $fitness_goal, $user_id
+        ]);
+
+        header("Location: profile.php"); // refresh page
+        exit;
+    } else {
+        $error = "Name and email cannot be empty";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,80 +135,80 @@
   <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
     <h2 class="text-2xl font-semibold text-indigo-600 mb-6"> Your Profile</h2>
 
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
+    <?php if(!empty($error)) echo "<p class='text-red-500 mb-4'>$error</p>"; ?>
+
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700" method="POST">
       <!-- Name -->
       <div>
         <label class="block font-medium mb-1">Name</label>
-        <input type="text" value="Israt Jahan" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
       <!-- Email -->
       <div>
         <label class="block font-medium mb-1">Email</label>
-        <input type="email" value="israt@example.com" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
       <!-- Password -->
       <div>
         <label class="block font-medium mb-1">Password</label>
-        <input type="password" value="password123" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="password" name="password" placeholder="Enter new password to change" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
       <!-- Gender -->
       <div>
         <label class="block font-medium mb-1">Gender</label>
-        <select class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-          <option selected>Female</option>
-          <option>Male</option>
-          <option>Other</option>
+        <select name="gender" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          <option value="" disabled <?= $user['gender']==''?'selected':'' ?>>Select gender</option>
+          <option value="Female" <?= $user['gender']=='Female'?'selected':'' ?>>Female</option>
+          <option value="Male" <?= $user['gender']=='Male'?'selected':'' ?>>Male</option>
+          <option value="Other" <?= $user['gender']=='Other'?'selected':'' ?>>Other</option>
         </select>
       </div>
 
       <!-- Height -->
       <div>
         <label class="block font-medium mb-1">Height (cm)</label>
-        <input type="number" value="160" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="number" name="height" value="<?= htmlspecialchars($user['height']) ?>" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
       <!-- Weight -->
       <div>
         <label class="block font-medium mb-1">Weight (kg)</label>
-        <input type="number" value="55" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="number" name="weight" value="<?= htmlspecialchars($user['weight']) ?>" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
       <!-- Age -->
       <div>
         <label class="block font-medium mb-1">Age</label>
-        <input type="number" value="22" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="number" name="age" value="<?= htmlspecialchars($user['age']) ?>" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
       <!-- Goal Weight -->
       <div>
         <label class="block font-medium mb-1">Goal Weight (kg)</label>
-        <input type="number" value="50" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <input type="number" name="goal_weight" value="<?= htmlspecialchars($user['goal_weight']) ?>" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
       </div>
 
-      <!-- Fitness Goal (Combo Box) -->
+      <!-- Fitness Goal -->
       <div class="md:col-span-2">
         <label class="block font-medium mb-1">Fitness Goal</label>
-        <select class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-          <option disabled selected>Select your goal</option>
-          <option>Weight Loss</option>
-          <option>Muscle Gain</option>
-          <option>Healthy Living</option>
+        <select name="fitness_goal" class="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          <option value="" disabled <?= $user['fitness_goal']==''?'selected':'' ?>>Select your goal</option>
+          <option value="Weight Loss" <?= $user['fitness_goal']=='Weight Loss'?'selected':'' ?>>Weight Loss</option>
+          <option value="Muscle Gain" <?= $user['fitness_goal']=='Muscle Gain'?'selected':'' ?>>Muscle Gain</option>
+          <option value="Healthy Living" <?= $user['fitness_goal']=='Healthy Living'?'selected':'' ?>>Healthy Living</option>
         </select>
       </div>
 
-
-      <!-- Save Button -->
       <div class="md:col-span-2 flex justify-end">
-        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">
-          Save Changes
-        </button>
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">Save Changes</button>
       </div>
     </form>
   </div>
 </section>
+
 
 <!-- Progress Chart Section -->
 <section class="w-full px-4 py-10 bg-white">
@@ -174,7 +228,7 @@
       labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'], // X-axis
       datasets: [{
         label: 'Weight (kg)',
-        data: [55, 54.5, 54, 53.2, 52.5], // Y-axis values
+        data: [69, 68, 67.6, 66.2, 64.8], // Y-axis values
         borderColor: '#6366F1',
         backgroundColor: 'rgba(99, 102, 241, 0.1)',
         borderWidth: 3,

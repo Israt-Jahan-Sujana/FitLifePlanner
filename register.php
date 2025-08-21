@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $successMessage = 'Registration successful!';
 
                 // Redirect based on role
-                if ($role === 'user') header("Location: profile.html");
+                if ($role === 'user') header("Location: profile.php");
                 elseif ($role === 'dietitian') header("Location: dietitian_dashboard.php");
                 elseif ($role === 'admin') header("Location: admin_dashboard.php");
                 exit;
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <!-- Form -->
-    <form class="space-y-4" method="POST" action="">
+    <form class="space-y-4" method="POST" action="register.php">
       <input type="text" name="name" placeholder="Name" class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300" required />
       <input type="email" name="email" placeholder="Email Address" class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300" required />
       <input type="password" name="password" placeholder="Password" class="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-300" required />
