@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start(); // Start the session
+
 require 'config.php'; // Make sure config.php is in the same folder
 
 $successMessage = '';
@@ -28,9 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($checkStmt->fetch()) {
                 $errorMessage = 'Email already exists';
             } else {
+                // Insert user
                 $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
                 $stmt->execute([$name, $email, password_hash($password, PASSWORD_DEFAULT), $role]);
-                $successMessage = 'Registration successful!';
+
+                // Get the new user ID
+                $userId = $pdo->lastInsertId();
+
+                // Log the user in by setting session
+                $_SESSION['user_id'] = $userId; // Use 'user_id' since your feedback.php uses it
+                $_SESSION['user_name'] = $name;
+                $_SESSION['user_role'] = $role;
+
+                $successMessage = 'Registration successful! Redirecting...';
 
                 // Redirect based on role
                 if ($role === 'user') header("Location: profile.php");
