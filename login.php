@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirect based on role
             if ($role === 'user') header("Location: profile.php");
             elseif ($role === 'dietitian') header("Location: dietitian_dashboard.html");
-            elseif ($role === 'admin') header("Location: admin_dashboard.html");
+            elseif ($role === 'admin') header("Location: admin_dashboard.php");
             exit;
         } else {
             $error = "Invalid email, password, or role.";
