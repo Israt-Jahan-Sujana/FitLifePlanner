@@ -41,7 +41,7 @@ $feedbacks = $stmt->fetchAll();
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Carter+One&display=swap" rel="stylesheet">
 </head>
-<body class="text-[#2c3e50] text-base overflow-x-hidden min-h-screen flex flex-col">
+<body class="text-[#2c3e50] text-base overflow-x-hidden min-h-screen">
 
 <!-- Navigation Bar -->
 <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-5 rounded-b-[15px]">
@@ -53,6 +53,7 @@ $feedbacks = $stmt->fetchAll();
   </div>
 </nav>
 
+<!-- Welcome Section -->
 <section class="pt-28 px-4 sm:px-10">
   <div class="bg-gradient-to-r from-white to-violet-100 text-indigo-700 rounded-2xl shadow-lg p-8 text-center">
     <h2 class="text-3xl md:text-4xl mb-2" style="font-family: 'Carter One', system-ui;">Welcome Admin, <?php echo htmlspecialchars($_SESSION['user_name']); ?></h2>
@@ -60,8 +61,39 @@ $feedbacks = $stmt->fetchAll();
   </div>
 </section>
 
-<main class="flex-grow">
-<section class="mt-10 px-4 sm:px-10 ">
+<!-- Dashboard Cards Section -->
+<section class="mt-10 px-4 sm:px-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+    <!-- Card 1 -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 text-center flex flex-col items-center justify-between">
+      <img src="dietitian.jpg" alt="Dietitian" class="w-40 h-40 object-cover rounded-full mb-4 shadow-md">
+      <h3 class="text-xl font-bold text-indigo-700 mb-2">Manage Dietitians</h3>
+      <p class="text-gray-600 mb-4">View, Edit or remove profiles.</p>
+      <a href="dietitian_list.html">
+        <button class="bg-indigo-500 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-indigo-600 transition">
+          Go to Page
+        </button>
+      </a>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 text-center flex flex-col items-center justify-between">
+      <img src="user2.jpg" alt="Users" class="w-40 h-40 object-cover rounded-full mb-4 shadow-md">
+      <h3 class="text-xl font-bold text-indigo-700 mb-2">Manage Users</h3>
+      <p class="text-gray-600 mb-4">View or remove user profiles.</p>
+      <a href="user_list.html">
+        <button class="bg-indigo-500 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-indigo-600 transition">
+          Go to Page
+        </button>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Feedback Table Section -->
+<section class="mt-10 px-4 pb-10 sm:px-10">
   <div class="bg-white rounded-2xl shadow-lg overflow-x-auto">
     <h3 class="text-2xl font-bold text-indigo-700 text-center p-6 border-b">User Feedback</h3>
 
@@ -102,7 +134,6 @@ $feedbacks = $stmt->fetchAll();
     </table>
   </div>
 </section>
-</main>
 
 <footer class="bg-gradient-to-br from-indigo-500 to-indigo-400 text-white px-5 py-8 text-center rounded-t-[15px] shadow-md">
     <p>&copy; 2025 FitLifePlanner. All rights reserved.</p>
