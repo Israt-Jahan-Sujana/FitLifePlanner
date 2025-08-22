@@ -29,11 +29,21 @@ $grocery_lists = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     $message = trim($_POST['message']);
     if ($message !== '') {
+        // Insert message with sender='user'
         $stmt = $pdo->prepare("INSERT INTO messages (user_id, sender, message) VALUES (?, 'user', ?)");
         $stmt->execute([$user_id, $message]);
+
         $msg_success = "Message sent to dietitian!";
     }
 }
+
+// Fetch chat history for this user (all messages between user and dietitian)
+$stmt = $pdo->prepare("SELECT sender, message, created_at FROM messages WHERE user_id = ? ORDER BY created_at ASC");
+$stmt->execute([$user_id]);
+$chat_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     </div>
     <ul class="flex flex-col gap-5 w-full mt-2.5 text-gray-700 font-medium md:flex-row md:space-x-10 md:pr-20 md:w-auto md:mt-0 justify-end">
       <li><a href="profile.php" class="hover:text-indigo-600 transition">Home</a></li>
-      <li><a href="fitness.php" class="hover:text-indigo-600 transition">Fitness Activity</a></li>
-      <li><a href="meal.php" class="hover:text-indigo-600 transition">Meal Intake</a></li>
-      <li><a href="bmi_bmr.php" class="hover:text-indigo-600 transition">BMI/BMR</a></li>
+      <li><a href="fitness.html" class="hover:text-indigo-600 transition">Fitness Activity</a></li>
+      <li><a href="meal.html" class="hover:text-indigo-600 transition">Meal Intake</a></li>
+      <li><a href="bmi_bmr.html" class="hover:text-indigo-600 transition">BMI/BMR</a></li>
       <li><a href="feedback.php" class="hover:text-indigo-600 transition">Feedback</a></li>
       <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
     </ul>
@@ -135,16 +145,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
   </section>
 
   <!-- Message Dietitian Section -->
+
   <section class="px-6 py-12">
-    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow">
-      <h3 class="text-xl font-semibold text-indigo-600 mb-4">Need Help or Suggestions?</h3>
-      <?php if(isset($msg_success)) echo "<p class='text-green-600 mb-2'>$msg_success</p>"; ?>
-      <form action="" method="POST" class="space-y-4">
-        <textarea name="message" rows="5" placeholder="Write your message to the dietitian..." class="w-full border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-indigo-400" required></textarea>
-        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition">Send Message</button>
-      </form>
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow flex flex-col h-[400px]">
+    <h3 class="text-xl font-semibold text-indigo-600 mb-4">Chat with Dietitian</h3>
+
+    <!-- Chat history (scrollable) -->
+    <div class="flex-1 overflow-y-auto border border-gray-200 rounded p-3 mb-4">
+      <?php if (!empty($chat_history)): ?>
+        <?php foreach ($chat_history as $chat): ?>
+          <div class="mb-2">
+    <span class="font-bold <?php echo $chat['sender'] === 'user' ? 'text-blue-600' : 'text-green-600'; ?>">
+       <?php echo $chat['sender'] === 'user' ? htmlspecialchars($user['name']) : 'Dietitian'; ?>:
+    </span>
+
+            <span><?php echo htmlspecialchars($chat['message']); ?></span>
+            <div class="text-xs text-gray-500">
+              <?php echo date("M d, Y H:i", strtotime($chat['created_at'])); ?>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p class="text-gray-500">No messages yet. Start the conversation below!</p>
+      <?php endif; ?>
     </div>
-  </section>
+
+    <!-- Input form -->
+    <form action="" method="POST" class="flex gap-2">
+      <textarea name="message" rows="2" placeholder="Write your message..." class="flex-1 border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-indigo-400" required></textarea>
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Send</button>
+    </form>
+  </div>
+</section>
+
 
 </main>
 
