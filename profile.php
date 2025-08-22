@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       We’re excited to help you begin your journey toward a healthier, more active lifestyle! Plan your meals, track your workouts, and stay motivated every step of the way.
     </p>
 
-    <a href="userGetPlan.html" class="inline-block bg-gradient-to-r from-pink-400 to-indigo-500 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition-all duration-300">
+    <a href="userGetPlan.php" class="inline-block bg-gradient-to-r from-pink-400 to-indigo-500 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition-all duration-300">
       Get Your Plan →
     </a>
 

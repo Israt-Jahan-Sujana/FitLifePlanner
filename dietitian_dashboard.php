@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
 </head>
 
-<body class="mx-4">
+<body>
 <!-- Navigation Bar -->
 <nav class="w-full bg-white shadow-md fixed top-0 left-0 z-50 py-5 rounded-b-[15px]">
   <div class="w-full max-w-8xl px-5 flex flex-col items-start md:flex-row md:items-center justify-between">
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <ul class="flex flex-col gap-5 w-full mt-2.5 text-gray-700 font-medium md:flex-row md:space-x-10 md:pr-20 md:w-auto md:mt-0 justify-end">
       <li><a href="dietitian_dashboard.php" class="hover:text-indigo-600 transition">Home</a></li>
-      <li><a href="SuggestPlans.html" class="hover:text-indigo-600 transition">Suggest plans</a></li>
+      <li><a href="SuggestPlans.php" class="hover:text-indigo-600 transition">Suggest plans</a></li>
       <li><a href="index.html" class="hover:text-indigo-600 transition">Logout</a></li>
     </ul>
   </div>
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
   <!-- User Details Table -->
-<section class="bg-white rounded-xl shadow-lg drop-shadow-[0_4px_12px_rgba(165,180,252,0.6)] overflow-x-auto p-6 mt-10 mx-20">
+<section class="bg-white rounded-xl shadow-lg drop-shadow-[0_4px_12px_rgba(165,180,252,0.6)] overflow-x-auto p-6 mt-10">
   <h2 class="text-2xl font-semibold text-indigo-600 mb-4">User Details</h2>
 
   <div class="overflow-x-auto">
