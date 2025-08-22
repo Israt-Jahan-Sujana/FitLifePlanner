@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2025 at 04:27 PM
+-- Generation Time: Aug 22, 2025 at 06:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -98,15 +98,16 @@ CREATE TABLE `messages` (
   `user_id` int(11) NOT NULL,
   `sender` enum('user','dietitian') NOT NULL,
   `message` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `receiver_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id`, `user_id`, `sender`, `message`, `created_at`) VALUES
-(3, 4, 'user', 'allergic to beef', '2025-08-22 13:19:09');
+INSERT INTO `messages` (`id`, `user_id`, `sender`, `message`, `created_at`, `receiver_id`) VALUES
+(3, 4, 'user', 'allergic to beef', '2025-08-22 13:19:09', 0);
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,7 @@ CREATE TABLE `suggested_plans` (
 --
 
 INSERT INTO `suggested_plans` (`id`, `user_id`, `calories`, `breakfast`, `lunch`, `dinner`, `snacks`, `exercise`, `created_at`) VALUES
-(1, 4, '2000', 'bread,butter,2 eggs,oats with milk', '2 cups of rice, 1 cup of beef/chicken/fish curry, lentils,salad', 'oats with different kind of fruits', 'raw tea,nuts,fruits,cucumber,milk', 'daily 15 minutes weight lifting', '2025-08-22 09:50:27');
+(1, 4, '2000', 'bread', 'rice', 'fruits', 'tea', '30 mins weight lifting', '2025-08-22 09:50:27');
 
 -- --------------------------------------------------------
 
