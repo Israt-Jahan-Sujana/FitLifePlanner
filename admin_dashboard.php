@@ -36,7 +36,7 @@ $feedbacks = $stmt->fetchAll();
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Admin Dashboard - Fit Life Planner</title>
+<title>Fit Life Planner</title>
 <link rel="icon" type="image/x-icon" href="heart-rate.png">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Carter+One&display=swap" rel="stylesheet">
